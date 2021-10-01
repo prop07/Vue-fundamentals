@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://unpkg.com/vue@next"></script>
+  </head>
+  <body>
+    <div class="container text-center">
+        <div class="text-center p-4">
+          <a href="index.htm" class="nav-link d-inline">Home</a>
+        </div>
+      <h1 class="m-4">Practice</h1>
+      <!-- check box -->
+      <div id="v-model-checkbox" class="card p-4">
+        <div v-if="checked">
+          <h4>Checked Is Turned On:</h4>
+        </div>
+        <div v-else>
+          <h4>Checked Is Turned Off:</h4>
+        </div>
+        <div>
+          <input type="checkbox" id="checkbox" v-model="checked" />
+          <label for="checkbox">{{ checked }}</label>
+        </div>
+      </div>
+      <!-- check names -->
+      <div id="v-model-multiple-checkboxes" class="card p-4">
+        <div>
+          <h4>Check Box:</h4>
+          <input
+            type="checkbox"
+            id="jack"
+            value="Jack"
+            v-model="checkedNames"
+          />
+          <label for="jack" class="p-2">Jack</label>
+          <input
+            type="checkbox"
+            id="john"
+            value="John"
+            v-model="checkedNames"
+          />
+          <label for="john" class="p-2">John</label>
+          <input
+            type="checkbox"
+            id="mike"
+            value="Mike"
+            v-model="checkedNames"
+          />
+          <label for="mike" class="p-2">Mike</label>
+          <br />
+        </div>
+        <span>Checked names: {{ checkedNames }}</span>
+      </div>
+      <!-- Radio Button -->
+      <div id="radio" class="card p-4">
+        <div>
+          <h4>Radio Button:</h4>
+          <input
+            type="radio"
+            name="radio1"
+            value=":→→→ Male"
+            v-model="radioItems"
+          />
+          <label for="radio1" class="p-2">Male</label>
+          <input
+            type="radio"
+            name="radio2"
+            value=":→→→ Female"
+            v-model="radioItems"
+          />
+          <label for="radio2" class="p-2">FeMale</label>
+          {{radioItems}}
+        </div>
+      </div>
+      <!-- select -->
+      <div id="select" class="card p-4">
+        <h4>Option Select:</h4>
+        <div>
+          <select
+            name="select1"
+            id="select1"
+            class="w-25 text-center"
+            v-model="select1"
+          >
+            <option disabled value="">Please select one</option>
+            <option value="Suraj">Suraj</option>
+            <option value="Kumar">Kumar</option>
+            <option value="Thapa">Thapa</option>
+          </select>
+        </div>
+        <span>Selected Value: {{select1}}</span>
+      </div>
+      <!-- multiple -->
+      <div id="v-model-select" class="card p-4">
+        <h4>Option Select Multiple:</h4>
+        <div>
+          <select v-model="selected" class="w-25" multiple>
+            <option>A</option>
+            <option>B</option>
+            <option>C</option>
+          </select>
+        </div>
+        <span>Selected: {{ selected }}</span>
+      </div>
+      <!-- dynamic v-for -->
+      <div id="v-model-select-dynamic" class="card p-4">
+        <h4>Dynamic V-for:</h4>
+        <div>
+          <select v-model="selected" class="w-25">
+            <option v-for="option in options" v-bind:value="option.value">
+              {{ option.text }}
+            </option>
+          </select>
+        </div>
+        <span>Selected: {{ selected }}</span>
+      </div>
+      <!-- lazy -->
+      <div class="container card p-4 text-center" id="lazy">
+        <h4>Regular vs Lazy Input (v-model.lazy):</h4>
+        <label for="unlazyinput">Regular Input</label>
+        <div>
+          <input
+            type="number"
+            class="w-25"
+            name="unlazyinput"
+            v-model="number"
+          />
+        </div>
+        {{number}}
+        <label for="lazyinput">Lazy Input</label>
+        <div>
+          <input type="number" class="w-25" v-model.lazy.number="number" />
+        </div>
+        {{number}}
+        <div class="container card p-4 text-center" class="lazy">
+          <h4>Trim User Input (v-model.trim):</h4>
+          <label for="contents">Regular Input</label>
+          <div>
+            <input
+              type="text"
+              class="w-25"
+              name="contents"
+              v-model.trim="content"
+            />
+          </div>
+          [{{content}}]
+        </div>
+
+        <!-- Insert above here -->
+      </div>
+    </div>
+
+    <!-- 
+    Script Tag 1
+    Script Tag 2
+    Script Tag 3
+ -->
+    <script>
+      // check box
+      Vue.createApp({
+        data() {
+          return {
+            checked: true,
+          };
+        },
+        methods: {
+          hello() {
+            console.log(this.checked);
+          },
+        },
+      }).mount("#v-model-checkbox");
+      //   check item
+      Vue.createApp({
+        data() {
+          return {
+            checkedNames: [],
+          };
+        },
+      }).mount("#v-model-multiple-checkboxes");
+      //   radiosections
+      Vue.createApp({
+        data() {
+          return {
+            radioItems: "",
+          };
+        },
+      }).mount("#radio");
+      // select
+      Vue.createApp({
+        data() {
+          return {
+            select1: "",
+          };
+        },
+      }).mount("#select");
+      // multiple seclect
+      Vue.createApp({
+        data() {
+          return {
+            selected: [],
+          };
+        },
+      }).mount("#v-model-select");
+      //   dynamic
+      Vue.createApp({
+        data() {
+          return {
+            selected: "A",
+            options: [
+              { text: "One", value: "A" },
+              { text: "Two", value: "B" },
+              { text: "Three", value: "C" },
+            ],
+          };
+        },
+      }).mount("#v-model-select-dynamic");
+      //   lazy
+      Vue.createApp({
+        data() {
+          return {
+            number: 0,
+            content: "",
+          };
+        },
+      }).mount("#lazy");
+    </script>
+  </body>
+</html>

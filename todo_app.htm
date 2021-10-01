@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://unpkg.com/vue@next"></script>
+  </head>
+  <body>
+    <div id="root" class="text-center">
+      <form v-on:submit.prevent>
+        <div class="text-center p-4">
+          <a href="index.htm" class="nav-link d-inline">Home</a>
+      </div>
+        <h1 class="m-4">Todo App</h1>
+        <input v-model="newTodoText" />
+        <button @click="addNewTodo" class="btn p-1 m-1 btn-primary">Add</button>
+      </form>
+        <ul class="list-group w-50 mx-auto m-2">
+            <li v-for="(todo, index) in todos" class="list-group-item p-2">
+                <span class="float-start">{{ todo.title }}</span>
+              <button @click="todos.splice(index, 1)" class="btn btn-primary float-end">Remove</button>
+            </li>
+          </ul>
+    </div>
+    <!-- js -->
+    <script>
+      const app = Vue.createApp({
+        data() {
+          return {
+            newTodoText: "",
+            todos: [{ id: 1, title: "Do the dishes" }],
+            nextTodoId: 4,
+          };
+        },
+        methods: {
+          addNewTodo() {
+            if (this.newTodoText !== "") {
+              this.todos.push({
+                id: this.nextTodoId++,
+                title: this.newTodoText,
+              });
+              this.newTodoText = "";
+            }
+          },
+        },
+      });
+      app.mount("#root");
+    </script>
+  </body>
+</html>

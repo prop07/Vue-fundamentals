@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://unpkg.com/vue@next"></script>
+  </head>
+  <body>
+    <div id="root" class="text-center p-4">
+        <div class="text-center">
+          <a href="index.htm" class="nav-link d-inline">Home</a>
+        </div>
+        <h1 class="p-2">Components</h1>
+      <!-- Simple Counter -->
+      <first-element></first-element>
+      <hr />
+      <!-- Blog Post -->
+      <h1 class="p-2">Just loop + props in html tag:</h1>
+      <blog-post title="My journey with Vues"></blog-post>
+      <blog-post title="Blogging with Vue"></blog-post>
+      <blog-post title="Why Vue is so fun"></blog-post>
+      <hr />
+      <!-- Blog post for loop -->
+      <h1 class="p-2">Using for loop + props inside js data():</h1>
+      <blog-posts
+        v-for="post in posts"
+        :key="post.id"
+        :title="post.title"
+      ></blog-posts>
+    </div>
+    <script>
+      const app = Vue.createApp({
+          data(){
+              return{
+            posts: [
+                { id: 1, title: "My journey with Vue" },
+                { id: 2, title: "Blogging with Vue" },
+                { id: 3, title: "Why Vue is so fun" },
+              ],
+          }}
+      })
+      
+        //   first component
+        .component("first-element", {
+          data() {
+            return {
+              counter: 0,
+            };
+          },
+          methods: {
+            decreaseCount() {
+              this.counter--;
+            },
+          },
+          template: `
+                <h3>Counter: {{counter}}</h3>
+                <button @click='counter++' class='m-2 btn btn-primary'>Increase</button>
+                <button @click='decreaseCount' class='m-2 btn btn-primary'>Decrease</button>
+            `,
+        })
+        // third comp
+        // second component
+        .component("blog-post", {
+            props: ["title"],
+            template: `<h4>{{ title }}</h4>`,
+        })
+        .component("blog-posts", {
+          props: ["title"],
+          template: `<h4>{{ title }}</h4>`,
+        })
+        .mount("#root");
+    </script>
+  </body>
+</html>
