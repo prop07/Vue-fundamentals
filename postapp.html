@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://unpkg.com/vue@next"></script>
+  </head>
+  <body>
+    <div id="postapp" class="text-center">
+      <a href="index.htm" class="nav-link d-inline">Home</a>
+      <br />
+      <div class="m-4">
+        <input type="text" v-model="postcontent" />
+        <button class="btn btn-outline-primary m-2" @click="addpost">
+          Post</button
+        ><br />
+        <button class="btn btn-outline-danger" @click="clearall">
+          Clear All
+        </button>
+      </div>
+
+      <div v-for="(i, index) in posts" :key="i.id">
+        <div class="border">
+          {{index+1}}. {{i.title}}
+          <button class="btn btn-danger m-2" @click="posts.splice(index,1)">
+            Delete
+          </button>
+        </div>
+      </div>
+    </div>
+    <script>
+      const postapp = Vue.createApp({
+        data() {
+          return {
+            isvisible: false,
+            postcontent: "",
+            posts: [
+              { id: 1, title: "make a tea" },
+              { id: 2, title: "make a coffee" },
+            ],
+            nextid: 3,
+            todoedit: "",
+          };
+        },
+        methods: {
+          addpost() {
+            if (this.postcontent != "") {
+              this.posts.push({ id: this.nextid, title: this.postcontent });
+              this.nextid++;
+              this.postcontent = "";
+            }
+          },
+          clearall() {
+            this.posts = [];
+          },
+        },
+      }).mount("#postapp");
+    </script>
+  </body>
+</html>
